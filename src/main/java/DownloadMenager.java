@@ -1,36 +1,41 @@
-import java.io.BufferedInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.nio.channels.ReadableByteChannel;
 
 public class DownloadMenager {
 
-    private String url;
+    private URL url;
     private String fileName;
 
-    DownloadMenager(){
-        // Default file name
-        fileName = "myFile";
+
+    DownloadMenager(String url){
+        try{
+            this.url = new URL(url);
+            fileName = "MyFile.txt";
+        } catch(MalformedURLException e){
+            this.url = null;
+            e.printStackTrace();
+        }
     }
+
 
     void download(){
-
         try{
-            BufferedInputStream input = new BufferedInputStream(new URL(this.url).openStream());
+            BufferedReader input = new BufferedReader(new InputStreamReader(this.url.openStream()));
+            FileWriter fw= new FileWriter(this.fileName);
+            BufferedWriter output = new BufferedWriter(fw);
+            String inputLine;
+
+            while((inputLine = input.readLine()) != null){
+                output.write(inputLine + "\n");
+            }
+
+        } catch(IOException e){
+            e.printStackTrace();
         }
-        try{
-            
-        }
-    }
 
-
-    // Set and get
-    void setUrl(String Url){
-        this.Url = Url;
-    }
-
-    String getUrl(){
-        return Url;
     }
 }

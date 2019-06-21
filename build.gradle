@@ -7,6 +7,10 @@ application{
     mainClassName = "Main"
 }
 
+run{
+    standardInput = System.in
+}
+
 group 'pl.dwonaload-menager.dm'
 version '1.0-SNAPSHOT'
 
